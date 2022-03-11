@@ -124,7 +124,7 @@ main {
     color: var(--primary);
     background-color: white;font-weight: bold;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .background {
@@ -141,6 +141,7 @@ main {
     -moz-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     margin-top: 80px;
     margin-bottom: 50px;
+    border-radius: 20px;
 }
 
 .page-header {
@@ -199,6 +200,7 @@ article {
     break-inside: avoid;
     margin-bottom: 15px;
     transition: transform 1s ease;
+    border-radius: 10px;
 }
 
 article img {
@@ -358,6 +360,7 @@ footer input {
     -webkit-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     -moz-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     margin: 10px;
+    border-radius: 10px;
 }
 
 .stats-container h3, .deduction-container h3 {
@@ -391,6 +394,7 @@ footer input {
     -webkit-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     -moz-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 .deduction-container p {
@@ -414,6 +418,7 @@ footer input {
     box-shadow: -1px 1px 28px -2px rgba(0, 0, 0, 0.212);
     -webkit-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
     -moz-box-shadow: -1px 1px 28px -2px rgba(0,0,0,0.212);
+    border-radius: 10px;
 }
 
 .published i {
