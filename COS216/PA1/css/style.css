@@ -76,6 +76,10 @@ header {
     margin-right: 30px;
 }
 
+.nav-style a {
+    transition: 0.3s;
+}
+
 .nav-style a:hover {
     font-weight: bold;
 }
@@ -170,10 +174,11 @@ button[type="submit"] {
     border: 0;
     width: 70px;
     color: white;
+    transition: 0.3s ease;
 }
 
 button[type="submit"]:hover {
-    color: var(--primary);
+    background-color: var(--primary);
 }
 
 .articles {
@@ -324,6 +329,11 @@ footer h4 {
 
 footer li {
     margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+footer li:hover {
+    font-weight: bold;
 }
 
 ul {
@@ -344,6 +354,15 @@ footer input {
     background-color: var(--primary);
     padding: 0 20px;
     border-radius: 0 30px 30px 0;
+    
+}
+
+.newsletter-submit i {
+    transition: transform 0.3s ease;
+}
+
+.newsletter-submit:hover i {
+    transform: translate(8px, -8px);
 }
 
 /* COVID Page */
