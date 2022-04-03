@@ -466,6 +466,14 @@ footer input {
     transform: translateY(300px);
 }
 
+.article-loader {
+    width: 70px;
+}
+
+.article-loader-small {
+    width: 30px;
+}
+
 #country-options {
     margin: 10px 0 30px 0;
     height: 50px;
