@@ -1,7 +1,7 @@
 let req = new XMLHttpRequest();
 let json;
 
-req.open("get", "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=Lfw4TAMUC0xeMdySa4x3z2aqqrJfxN0s");
+req.open("get", "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=&page=0&fq=section_name:(\"world\")&sort=newest&api-key=zYOvG3v0vRAlWHzoumT3nWxVhVYuEaGn");
 req.onload = () => {
     json = JSON.parse(req.responseText);
     console.log(json);
@@ -13,37 +13,38 @@ req.send();
 function populateArticle(json) {
     const articles = document.getElementsByClassName('today-article');
 
+    let i = 0;
     for (let article of articles) {
-        let info = json.results[Math.floor(Math.random()*json.num_results)];
+        let info = json.response.docs[i++];
 
-        article.setAttribute('href', info.url);
+        article.setAttribute('href', info.web_url);
         
         let title = article.querySelector('.article-title');
-        title.innerHTML = info.title;
+        title.innerHTML = info.headline.main;
 
         let author = article.querySelector('.author');
-        author.innerHTML = info.byline;
+        author.innerHTML = info.byline.original;
 
-        if (author.innerHTML == "")
+        if (info.byline.original == "")
             author.innerHTML = "By anonymous";
 
         let abstract = article.querySelector('.description');
-        abstract.innerHTML = info.abstract;
+        abstract.innerHTML = info.lead_paragraph;
 
         let image = article.querySelector('.article-img');
-        image.setAttribute('src', info.multimedia[1].url);
-        image.setAttribute('alt', info.title);
 
-        let date = article.querySelector('.published');
+        if (info.multimedia[0] != null)
+            image.setAttribute('src', "https://static01.nyt.com/"+ info.multimedia[0].url);
+        image.setAttribute('alt', info.abstract);
 
         let section = article.querySelector('.section');
-        section.innerHTML = info.section;
+        section.innerHTML = info.section_name;
 
         let subsection = article.querySelector('.sub-section');
-        if (info.subsection == "") 
+        if (info.subsection_name == null) 
             subsection.style.display = 'none';
         else 
-            subsection.innerHTML = info.subsection;
+            subsection.innerHTML = info.subsection_name;
 
         let published = article.querySelector('.published');
 
@@ -52,7 +53,7 @@ function populateArticle(json) {
             month: "long",
             day: "2-digit"
         })
-        const trunc = info.published_date.substring(0,info.published_date.indexOf("T"));
+        const trunc = info.pub_date.substring(0,info.pub_date.indexOf("T"));
         const fDate = new Date(trunc);
         published.innerHTML += formatter.format(fDate);
     }

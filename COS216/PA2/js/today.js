@@ -1,3 +1,6 @@
+// ALl of my requests are asynchronous in order to reduce latency and allow other functions to execute while
+// the request is being handled.
+
 let req = new XMLHttpRequest();
 let json;
 
@@ -12,6 +15,8 @@ req.send();
 
 function populateArticle(json) {
     const articles = document.getElementsByClassName('today-article');
+    let sectionArray = [];
+    let subsectionArray = [];
 
     let i = 0;
     for (let article of articles) {
@@ -36,16 +41,59 @@ function populateArticle(json) {
         image.setAttribute('src', info.multimedia[1].url);
         image.setAttribute('alt', info.title);
 
-        let date = article.querySelector('.published');
-
         let section = article.querySelector('.section');
         section.innerHTML = info.section;
+        sectionArray.push(info.section);
 
         let subsection = article.querySelector('.sub-section');
         if (info.subsection == "") 
             subsection.style.display = 'none';
-        else 
+        else {
             subsection.innerHTML = info.subsection;
+            subsectionArray.push(info.subsection);
+        }
+
+        let published = article.querySelector('.published');
+
+        const formatter = new Intl.DateTimeFormat("en-SA", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+        })
+
+        const fDate = new Date();
+        published.innerHTML += formatter.format(fDate);
+    }
+
+    // Populate filters
+    let uniqueSection = [];
+    sectionArray.forEach((c) => {
+        if (!uniqueSection.includes(c)) {
+            uniqueSection.push(c);
+        }
+    });
+    let uniqueSub = [];
+    subsectionArray.forEach((c) => {
+        if (!uniqueSub.includes(c)) {
+            uniqueSub.push(c);
+        }
+    });
+
+    const dropdownCategory = document.getElementById('dropdown-category');
+    const dropdownTags = document.getElementById('dropdown-tags');
+
+    for (let i = 0; i < uniqueSection.length; i++) {
+        const option = document.createElement('option');
+        option.setAttribute('value', uniqueSection[i]);
+        option.innerText = uniqueSection[i];
+        dropdownCategory.appendChild(option);
+    }
+
+    for (let i = 0; i < uniqueSub.length; i++) {
+        const option = document.createElement('option');
+        option.setAttribute('value', uniqueSub[i]);
+        option.innerText = uniqueSub[i];
+        dropdownTags.appendChild(option);
     }
 }
 
